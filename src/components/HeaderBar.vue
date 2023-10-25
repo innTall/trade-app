@@ -8,13 +8,23 @@ import {
   TableCellsIcon,
   ShoppingCartIcon,
 } from "@heroicons/vue/24/outline";
+import { PAGE_WATCHLIST, PAGE_CHART, PAGE_OPTIONS, PAGE_TRADE } from '../assets/constants.js';
 const headerItems = {
-  watchlist: QueueListIcon,
-  chart: ArrowTrendingUpIcon,
-  options: TableCellsIcon,
-  trade: ShoppingCartIcon,
+  [PAGE_WATCHLIST]: QueueListIcon,
+  [PAGE_CHART]: ArrowTrendingUpIcon,
+  [PAGE_OPTIONS]: TableCellsIcon,
+  [PAGE_TRADE]: ShoppingCartIcon,
 };
-const currentPage = ref('watchlist');
+const currentPage = ref(normalizePageHash());
+function normalizePageHash() {
+  const hash = window.location.hash.slice(1);
+  if (Object.keys(headerItems).includes(hash)) {
+    return hash
+  }
+  window.location.hash = PAGE_WATCHLIST
+  return PAGE_WATCHLIST
+}
+
 </script>
 
 <template>

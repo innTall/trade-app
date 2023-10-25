@@ -6,10 +6,11 @@ import {
   WrenchScrewdriverIcon,
   CurrencyDollarIcon,
 } from "@heroicons/vue/24/outline";
+import { PAGE_ABOUT, PAGE_SETTINGS, PAGE_INFO } from '../assets/constants.js';
 const footerItems = {
-  about: QuestionMarkCircleIcon,
-  settings: WrenchScrewdriverIcon,
-  info: CurrencyDollarIcon,
+  [PAGE_ABOUT]: QuestionMarkCircleIcon,
+  [PAGE_SETTINGS]: WrenchScrewdriverIcon,
+  [PAGE_INFO]: CurrencyDollarIcon
 };
 const currentPage = ref("about");
 </script>
