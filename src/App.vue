@@ -16,10 +16,13 @@ function normalizePageHash() {
   window.location.hash = PAGE_WATCHLIST
   return PAGE_WATCHLIST
 }
+function goTo(page) {
+  currentPage.value = page
+}
 </script>
 
 <template>
-  <HeaderBar :current-page="currentPage" @navigate="currentPage = $event"/>
+  <HeaderBar :current-page="currentPage" @navigate="goTo($event)" @go-to-watchlist="goTo(PAGE_WATCHLIST)"/>
   <main class="flex flex-grow flex-col">
     <WatchPage v-show="currentPage === PAGE_WATCHLIST" />
     <ChartPage v-show="currentPage === PAGE_CHART" />
