@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
+// data from https://api.binance.com/api/v3/ticker/24hr
 const asset = ref('USDT');
 let watchList = ref({});
 async function getTickersData() {
@@ -35,14 +36,15 @@ console.log(watchList);
 <template>
 	<div>
 		<div>
-			{{ watchList }}
 			<div v-for="ticker in watchList" :key="ticker.symbol">
 				<div>
-					<ul>
-						<li>{{ ticker.symbol }}</li>
-						<li>{{ ticker.lastPrice * 1 }}</li>
-						<li>{{ ticker.quoteVolume * 1 }}</li>
-					</ul>
+					<RouterLink :to="{name: 'Chart', params: {id: ticker.symbol}}">
+						<div>
+							<div>{{ ticker.symbol }}</div>
+							<div>{{ ticker.lastPrice * 1 }}</div>
+							<div>{{ ticker.quoteVolume * 1 }}</div>
+						</div>
+					</RouterLink>
 				</div>
 			</div>
 		</div>
