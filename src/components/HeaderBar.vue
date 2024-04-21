@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div class="">
-    <RouterLink :to="{ name: 'Home' }"> Home |</RouterLink>
+    <RouterLink :to="{ name: 'Watch' }"> Watch |</RouterLink>
   </div>
 </template>
 

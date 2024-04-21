@@ -4,8 +4,8 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "Home",
-      component: () => import("../views/HomePage.vue"),
+      name: "Watch",
+      component: () => import("../views/WatchList.vue"),
     },
   ],
 });
