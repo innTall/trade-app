@@ -1,14 +1,15 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
+//import tickerData from '../data/ticker24.json';
 const asset = ref('USDT');
 let watchList = ref({});
 async function getTickersData() {
 	const uri = 'https://api.binance.com/api/v3/ticker/24hr';
 	try {
 		const response = await fetch(uri);
-		const data = await response.json();
+		const tickerData = await response.json();
 		// filter data to quoteAsset USDT and empty values
-		const filterAsset = data.filter((item) => item.symbol.endsWith(asset.value));
+		const filterAsset = tickerData.filter((item) => item.symbol.endsWith(asset.value));
 		const filterZero = filterAsset.filter((item) => {
 			return item.count != 0;
 		});

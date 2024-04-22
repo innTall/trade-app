@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import HeaderBar from './components/HeaderBar.vue';
+import FooterBar from './components/FooterBar.vue';
 const route = useRoute();
 </script>
 
@@ -13,6 +14,7 @@ const route = useRoute();
       </transition>
     </RouterView>
   </div>
+  <FooterBar />
 </template>
 
 <style scoped></style>.
