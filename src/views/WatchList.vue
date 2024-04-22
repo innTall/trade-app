@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-// data from https://api.binance.com/api/v3/ticker/24hr
 const asset = ref('USDT');
 let watchList = ref({});
 async function getTickersData() {
@@ -21,6 +20,9 @@ async function getTickersData() {
 		let sortedAbc = filterOut.sort(sortArray);
 		// object destructuring for symbol, price, volume
 		watchList.value = sortedAbc.map(({ symbol, lastPrice, quoteVolume }) => {
+			// compact number format
+			const format = new Intl.NumberFormat("en", { notation: "compact", });
+			quoteVolume = format.format(quoteVolume);
 			return { symbol, lastPrice, quoteVolume };
 		});
 	} catch (error) {
@@ -30,23 +32,44 @@ async function getTickersData() {
 onMounted(() => {
 	getTickersData();
 });
-console.log(watchList);
+console.log("watch:", watchList);
 </script>
 
 <template>
-	<div>
-		<div>
-			<div v-for="ticker in watchList" :key="ticker.symbol">
-				<div>
-					<RouterLink :to="{name: 'Chart', params: {id: ticker.symbol}}">
-						<div>
-							<div>{{ ticker.symbol }}</div>
-							<div>{{ ticker.lastPrice * 1 }}</div>
-							<div>{{ ticker.quoteVolume * 1 }}</div>
+	<div class="container">
+		<div class="">
+			<article v-for="ticker in watchList" :key="ticker.symbol" class="mb-1 border border-green-700 rounded-2xl">
+				<RouterLink :to="{ name: 'Chart', params: { id: ticker.symbol } }"
+					class="flex justify-between hover:bg-gray-700">
+					<div class="flex items-center">
+						<div class="">
+							<input type="checkbox" :value="ticker"
+								class="bg-gray-600 text-green-400 rounded-l h-8 mr-2 ml-2 border-2 border-green-600 w-3">
 						</div>
-					</RouterLink>
-				</div>
-			</div>
+						<figure class="">
+							<img src="../public/logo.png" class="h-10 w-10 ml-2 mr-2 rounded-full">
+						</figure>
+						<div class="">
+							<p class="text-md">
+								<strong>
+									<span>{{ ticker.symbol }}</span>
+								</strong>
+								<br>
+								<small>Symbol name</small>
+							</p>
+						</div>
+					</div>
+					<div class="flex justify-end mr-3">
+						<p class="text-md text-right">
+							<strong>
+								<span>{{ ticker.lastPrice * 1 }}</span>
+							</strong>
+							<br>
+							<small>{{ ticker.quoteVolume }}</small>
+						</p>
+					</div>
+				</RouterLink>
+			</article>
 		</div>
 	</div>
 </template>
